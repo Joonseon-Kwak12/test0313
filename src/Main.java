@@ -49,8 +49,27 @@ public class Main { // 2번 문제
 				}
 				
 			} else if (command.startsWith("post detail")) {
+				String[] cmdDiv = command.split(" ");
+				int id = Integer.parseInt(cmdDiv[2]);
+				Post post = getPostById(id);
+				if (post == null) {
+					System.out.println(id + "번 게시물은 존재하지 않습니다.");
+					continue;
+				}
+				System.out.printf("번호 : %d\n", post.id);
+				System.out.printf("날짜 : %s\n", post.regDate);
+				System.out.printf("제목 : %s\n", post.title);
+				System.out.printf("내용 : %s\n", post.body);
+				continue;
 				
 			} else if (command.startsWith("post modify")) {
+				String[] cmdDiv = command.split(" ");
+				int id = Integer.parseInt(cmdDiv[2]);
+				Post post = getPostById(id);
+				if (post == null) {
+					System.out.println(id + "번 게시물은 존재하지 않습니다.");
+					continue;
+				}
 				
 			} else if (command.startsWith("post delete")) {
 				String[] cmdDiv = command.split(" ");
@@ -65,6 +84,8 @@ public class Main { // 2번 문제
 			} else {
 				continue;
 			}
+			
+			sc.close();
 		}		
 	}
 	
@@ -82,6 +103,14 @@ public class Main { // 2번 문제
 			}
 		}
 		return -1;
+	}
+	
+	static Post getPostById(int id) {
+		int index = getIndexById(id);
+		if (index != -1) {
+			return posts.get(index);
+		}
+		return null;
 	}
 }
 
